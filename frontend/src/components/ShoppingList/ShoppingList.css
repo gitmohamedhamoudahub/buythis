@@ -1,0 +1,148 @@
+.mainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+/* General Page Layout */
+body, .root {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  /* Shopping List Container */
+  .listsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Container for all list cards */
+  .allLists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* Shopping List Card */
+  .listWrapper {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 280px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .listWrapper:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Shopping List Title */
+  .listSummary {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2E8B57;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  /* List Details */
+  .listData {
+    text-align: left;
+    padding: 10px;
+  }
+  
+  .listData p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .listData strong {
+    color: #333;
+  }
+  
+  /* Buttons Container */
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  /* Emoji Buttons */
+  .iconButton {
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+  }
+  
+  .iconButton:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Tooltip */
+  .iconButton::after {
+    content: attr(data-tooltip);
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .iconButton:hover::after {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* ****************** Add New List Section ****************** */
+  .addNewList {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 50% ;
+  }
+  
+  .addNewList label {
+    font-weight: bold;
+    color: #2E8B57;
+  }
+  
+  .addNewList input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    flex-grow: 1;
+  }
+  
+  .addNewList button {
+    //flex-shrink: 0;
+  }
+  
