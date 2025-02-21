@@ -4,7 +4,7 @@ function ShoppingItems()
 {
     return(
     <>
-    <ItemAddingForm />
+    {/* <ItemAddingForm /> */}
     <ItemsList/>
     </>)
 }

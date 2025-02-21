@@ -143,6 +143,6 @@ body, .root {
   }
   
   .addNewList button {
-    //flex-shrink: 0;
+    width: 200px;
   }
   
