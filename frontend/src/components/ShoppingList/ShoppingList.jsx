@@ -1,15 +1,17 @@
 import shoppingListData from '../../data/shoppingLists.jsx';
 import { useState, useEffect } from 'react';
-import { getShoppingLists,addShoppingList, deleteShoppingList } from '../../data/shoppingListData.jsx';
+import { useNavigate } from 'react-router-dom';
+import { getShoppingLists, addShoppingList, deleteShoppingList } from '../../data/shoppingListData.jsx';
 import './ShoppingList.css'; // Import CSS file
 
 function ShoppingList() {
-
     const [shoppingLists, setShoppingLists] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [newListName, setNewListName] = useState("");
     const [adding, setAdding] = useState(false);
+    
+    const navigate = useNavigate(); // Hook for navigation
 
     useEffect(() => {
         const fetchShoppingLists = async () => {
@@ -26,7 +28,6 @@ function ShoppingList() {
         fetchShoppingLists();
     }, []);
     
-
     const handleAddList = async () => {
         if (!newListName.trim()) {
             alert("List name cannot be empty!");
@@ -45,9 +46,6 @@ function ShoppingList() {
         }
     };
 
-
-
-
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this list?")) return;
         try {
@@ -57,10 +55,13 @@ function ShoppingList() {
             alert("Error deleting list: " + err.message);
         }
     };
-    // console.log(shoppingListData);
+
+    const handleEdit = (list) => {
+        navigate(`/shopping-list/${list._id}`, { state: { list } });
+    };
 
     return (
-  <div className="mainContainer">
+        <div className="mainContainer">
             {/* Add New List Section */}
             <div className="addNewList">
                 <label>List Name:</label>
@@ -93,7 +94,7 @@ function ShoppingList() {
                                     {item.items.length !== 0 && (
                                         <button className="iconButton" data-tooltip="Start Shopping">🛒</button>
                                     )}
-                                    <button className="iconButton" data-tooltip="Edit List">✏️</button>
+                                    <button className="iconButton" data-tooltip="Edit List" onClick={() => handleEdit(item)}>✏️</button>
                                     {item.items.length === 0 && (
                                         <button className="iconButton" data-tooltip="Delete List" onClick={() => handleDelete(item._id)}>❌</button>
                                     )}
@@ -104,7 +105,8 @@ function ShoppingList() {
                     ))}
                 </div>
             </div>
-        </div>    );
+        </div>
+    );
 }
 
 export default ShoppingList;
