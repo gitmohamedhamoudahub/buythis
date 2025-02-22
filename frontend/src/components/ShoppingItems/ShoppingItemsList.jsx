@@ -1,79 +1,108 @@
-
-import './ItemsList.css';
-// import shoppingItemsData from '../../data/shoppingItemsData.jsx';
-import { useState, useEffect } from 'react';
-import { getShoppingItems } from '../../data/shoppingItemsData.jsx';
+// import { useShoppingItems } from "../../context/ShoppingItemsContext.jsx";
+import { useState, useContext } from "react";
+import ShoppingItemsContext from "../../context/ShoppingItemsContext.jsx";
 import './itemsList.css'; // Import CSS file
 
-function ItemsList() {
-  const [items, setItems] = useState([]);
+function ShoppingItemsList() {
+    const { items, addItem, updateItem } = useContext(ShoppingItemsContext);
+//   const { items, addItem, updateItem } = useShoppingItems();
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
   const [newStore, setNewStore] = useState('');
   const [newImage, setNewImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const handleAddNew = () => {
+    setSelectedItem({ name: "", price: "", unit: "", category: "", color: "", size: "", code: "", stores: [], photo: "" });
+    setIsAdding(true);
+  };
 
-  
-      useEffect(() => {
-          const fetchShoppingItems = async () => {
-              try {
-                console.log('GET DATA');
-                  const data = await getShoppingItems();
-                  setItems(data);
-                  console.log(data);
-              } catch (err) {
-                  setError(err.message);
-              } finally {
-                  setLoading(false);
-              }
-          };
-  
-          fetchShoppingItems();
-      }, []);
-      
+  const handleEdit = (item) => {
+    setSelectedItem(item);
+    setIsAdding(false);
+  };
+
+  const handleSave = () => {
+    if (isAdding) {
+      addItem(selectedItem);
+    } else {
+      updateItem(selectedItem);
+    }
+    setSelectedItem(null);
+  };
+
   
   // Handle adding new store
   const handleAddStore = (itemId) => {
     if (newStore.trim() === '') return;
-    setItems(
-      items.map((item) =>
+    setSelectedItem(
+          items.map((item) =>
         item._id === itemId ? { ...item, stores: [...item.stores, newStore] } : item
-      )
+      )    
     );
+    // setItems(
+    //   items.map((item) =>
+    //     item._id === itemId ? { ...item, stores: [...item.stores, newStore] } : item
+    //   )
+    // );
     setNewStore('');
   };
 
   // Handle removing a store
   const handleRemoveStore = (itemId, store) => {
-    setItems(
-      items.map((item) =>
-        item._id === itemId
-          ? { ...item, stores: item.stores.filter((s) => s !== store) }
-          : item
-      )
+    
+    setSelectedItem(
+        items.map((item) =>
+                item._id === itemId
+                  ? { ...item, stores: item.stores.filter((s) => s !== store) }
+                  : item
+              )
     );
+    
+    // setItems(
+    //   items.map((item) =>
+    //     item._id === itemId
+    //       ? { ...item, stores: item.stores.filter((s) => s !== store) }
+    //       : item
+    //   )
+    // );
   };
 
   // Handle adding a new image (file upload simulation)
-  const handleImageUpload = (event, itemId) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setItems(
-        items.map((item) =>
-          item._id === itemId ? { ...item, photo: imageUrl } : item
-        )
-      );
+  const handleImageUpload = (event, itemId) => 
+    {
+        const file = event.target.files[0];
+        if (file) 
+        {
+            const imageUrl = URL.createObjectURL(file);
+                setSelectedItem( 
+                    items.map((item) => 
+                        item._id === itemId ? { ...item, photo: imageUrl } : item 
+                )
+            )
+        }
+      
     }
-  };
+  
+
 
   return (
-    < >
-    {loading && <div>Loading...</div>}
-      {items.map((item) => (
-        
-        <div key={item._id} className="ItemCard">
-
+    <div>
+      <button onClick={handleAddNew}>🆕</button>
+      <div>
+        {items.map((item) => (
+          <div key={item._id} className="item-row">
+            <span>{item.name}</span>
+            <button onClick={() => handleEdit(item)}>✏️</button>            
+          </div>
+          
+        ))}
+      </div>
+      {selectedItem && (
+            
+        <div key={selectedItem._id} className="ItemCard">
+            <div className="itemTitle"> <label htmlFor="lblFormTitle">{isAdding ? "Add New Item" : "Edit Item"}</label></div>
           {/* ITEM HEADER SECTION */}
           <div className="itemHeader">
             <div className="itemTitle">
@@ -83,19 +112,16 @@ function ItemsList() {
                 id="txtItemName"
                 name="txtItemName"
                 placeholder="Item Name"
-                value={item.name}
-                onChange={(e) =>
-                  setItems(
-                    items.map((i) =>
-                      i._id === item._id ? { ...i, name: e.target.value } : i
-                    )
-                  )
-                }
+                value={selectedItem.name}
+                onChange={(e) => setSelectedItem({ ...selectedItem, name: e.target.value })} 
+                
               />
             </div>
             <div className="controlButtons">
-              <button className="delete">❌</button>
-              <button className="edit">✏️</button>
+            <button className="edit" onClick={handleSave}>💾</button>
+            <button className="edit"  onClick={() => setSelectedItem(null)}>❌</button>
+              {/* <button className="delete">❌</button> */}
+              {/* <button className="edit">✏️</button> */}
             </div>
           </div>
 
@@ -109,14 +135,9 @@ function ItemsList() {
                   id="txtPrice"
                   name="txtPrice"
                   placeholder="Price"
-                  value={item.price}
-                  onChange={(e) =>
-                    setItems(
-                      items.map((i) =>
-                        i._id === item._id ? { ...i, price: e.target.value } : i
-                      )
-                    )
-                  }
+                  value={selectedItem.price}
+                  onChange={(e) => setSelectedItem({ ...selectedItem, price: e.target.value })} 
+                
                 />
               </div>
               <div className="itemQuantity">
@@ -126,14 +147,9 @@ function ItemsList() {
                   id="txtQuantity"
                   name="txtQuantity"
                   placeholder="Quantity"
-                  value={item.unit}
-                  onChange={(e) =>
-                    setItems(
-                      items.map((i) =>
-                        i._id === item._id ? { ...i, unit: e.target.value } : i
-                      )
-                    )
-                  }
+                  value={selectedItem.unit}
+                  onChange={(e) => setSelectedItem({ ...selectedItem, unit: e.target.value })} 
+                
                 />
               </div>
             </div>
@@ -146,14 +162,9 @@ function ItemsList() {
                   id="txtCategory"
                   name="txtCategory"
                   placeholder="Category"
-                  value={item.category}
-                  onChange={(e) =>
-                    setItems(
-                      items.map((i) =>
-                        i._id === item._id ? { ...i, category: e.target.value } : i
-                      )
-                    )
-                  }
+                  value={selectedItem.category}
+                  onChange={(e) => setSelectedItem({ ...selectedItem, category: e.target.value })} 
+                
                 />
               </div>
               <div className="itemColor">
@@ -163,14 +174,9 @@ function ItemsList() {
                   id="txtColor"
                   name="txtColor"
                   placeholder="Color"
-                  value={item.color}
-                  onChange={(e) =>
-                    setItems(
-                      items.map((i) =>
-                        i._id === item._id ? { ...i, color: e.target.value } : i
-                      )
-                    )
-                  }
+                  value={selectedItem.color}
+                    onChange={(e) => setSelectedItem({ ...selectedItem, color: e.target.value })} 
+                
                 />
               </div>
             </div>
@@ -183,14 +189,9 @@ function ItemsList() {
                   id="txtSize"
                   name="txtSize"
                   placeholder="Size"
-                  value={item.size}
-                  onChange={(e) =>
-                    setItems(
-                      items.map((i) =>
-                        i._id === item._id ? { ...i, size: e.target.value } : i
-                      )
-                    )
-                  }
+                  value={selectedItem.size}
+                  onChange={(e) => setSelectedItem({ ...selectedItem, size: e.target.value })} 
+                
                 />
               </div>
               <div className="itemCode">
@@ -200,14 +201,9 @@ function ItemsList() {
                   id="txtCode"
                   name="txtCode"
                   placeholder="Product Code"
-                  value={item.code}
-                  onChange={(e) =>
-                    setItems(
-                      items.map((i) =>
-                        i._id === item._id ? { ...i, code: e.target.value } : i
-                      )
-                    )
-                  }
+                  value={selectedItem.code}
+                  onChange={(e) => setSelectedItem({ ...selectedItem, code: e.target.value })} 
+                
                 />
               </div>
             </div>
@@ -219,15 +215,15 @@ function ItemsList() {
               <label htmlFor="lblStores">STORES</label>
             </div>
             <div className="storesList">
-              {item.stores.map((store, index) => (
+              {selectedItem.stores.map((store, index) => (
                 <div key={index} className="storeContainer">
-                  <button onClick={() => handleRemoveStore(item._id, store)}>x</button>
+                  <button onClick={() => handleRemoveStore(selectedItem._id, store)}>x</button>
                   <h4>{store}</h4>
                 </div>
               ))}
             </div>
             <div className="addStore">
-              <button className='btnAdd' onClick={() => handleAddStore(item._id)}>+</button>
+              <button className='btnAdd' onClick={() => handleAddStore(selectedItem._id)}>+</button>
               <input
                 type="text"
                 id="txtStoreName"
@@ -246,7 +242,7 @@ function ItemsList() {
             </div>
             <div className="imagesList">
               <div className="imageContainer">
-                <img src={item.photo} alt="Product Image" />
+                <img src={selectedItem.photo} alt="Product Image" />
               </div>
             </div>
             <div className="addImage">
@@ -259,10 +255,12 @@ function ItemsList() {
               />
             </div>
           </div>
+         
         </div>
-      ))}
-    </>
-  );
-}
+          )
+          
+          }
+    </div>
+  );}
 
-export default ItemsList;
+export default ShoppingItemsList;
