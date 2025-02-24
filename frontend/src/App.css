@@ -76,3 +76,66 @@ button:hover {
   border-radius: 10px;
   width:90%;
 }
+.itemsContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.item-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  width: 80%;
+  background-color: lightslategray !important ;
+  margin: 5px;
+  padding: 5px;
+  border:1px solid #2E8B57;
+  border-radius: 10px;
+}
+.btnItemsEdit{
+  width: 50px;
+  
+  align-items: start;
+}
+
+.itemField{
+  border: 0px solid #2E8B57;
+  border-radius: 5px;
+  margin: 3px;
+  padding: 5px;
+  background-color: #fff;
+}
+.itemSearch{
+  border: 0px solid #2E8B57;
+  border-radius: 5px;
+  margin: 3px;
+  padding: 5px;
+  background-color: #fff;
+  width: 450px;
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+}
+.itemFieldControl{
+  display: flex;
+  gap: 5px;
+  
+  justify-content: space-around;
+}
+.btnItemsAdd{
+  width: 150px;
+  margin-left: 10px;
+  align-items: start;
+}
+.txtSearchItem{
+  width: 300px;
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #2E8B57;
+  border-radius: 5px;
+  background-color: #fff;
+}

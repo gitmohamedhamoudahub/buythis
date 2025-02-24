@@ -44,10 +44,10 @@ router.post('/', async (req, res) => {
             remarks: remarks || null
         });
 
-        // Save to database
+        
         const savedItem = await newShoppingItem.save();
-
-        res.status(201).json(savedItem); // Respond with the created item
+        console.log('Saved Item',savedItem);
+        res.status(201).json({success: true, item: savedItem}); 
     } catch (error) {
         console.error(error);
         res.status(500).json({ msg: 'Server error' });
