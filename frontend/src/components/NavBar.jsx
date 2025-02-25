@@ -7,7 +7,7 @@ function Navbar() {
         
       <ul className="nav-links">
         <li><Link to={`/`}>HOME</Link></li>
-        <li><Link to="/ShoppingLists">SHOPPING LISTS</Link></li>
+        {/* <li><Link to="/ShoppingLists">SHOPPING LISTS</Link></li> */}
         <li><Link to="/ShoppingItems">SHOPPING ITEMS</Link></li>
         <li><Link to="/StartShopping">START SHOPPING</Link></li>
         

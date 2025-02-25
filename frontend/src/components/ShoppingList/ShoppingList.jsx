@@ -51,28 +51,38 @@ function ShoppingList() {
         {error && <p className="error">{error}</p>}
 
         <div className="allLists">
-          {shoppingLists.map((item) => (
-            <div key={item._id} className="listWrapper">
-              <div className="listSummary">{item.list_name}</div>
-              <div className="listData">
-                <p><strong>Created by:</strong> {item.user_id.name}</p>
-                <p><strong>Status:</strong> {item.status}</p>
-                <p><strong>Items:</strong> {item.items.length}</p>
+          {shoppingLists.map((item) => {
+            // Calculate the total budget (estimated cost)
+            const budget = item.items?.reduce((sum, curr) => sum + (curr.estimated_cost || 0), 0) || 0;
 
-                {/* Emoji Buttons */}
-                <div className="buttonContainer">
-                  {item.items.length !== 0 && (
-                    <button className="iconButton" data-tooltip="Start Shopping">🛒</button>
-                  )}
-                  <button className="iconButton" data-tooltip="Edit List" onClick={() => handleEdit(item)}>✏️</button>
-                  {item.items.length === 0 && (
-                    <button className="iconButton" data-tooltip="Delete List" onClick={() => handleDelete(item._id)}>❌</button>
-                  )}
-                  <button className="iconButton" data-tooltip="Close List">🔒</button>
+            // Calculate the total actual cost
+            const actual = item.items?.reduce((sum, curr) => sum + (curr.actual_cost || 0), 0) || 0;
+
+            return (
+              <div key={item._id} className="listWrapper">
+                <div className="listSummary">{item.list_name}</div>
+                <div className="listData">
+                  <p><strong>Created by:</strong> {item.user_id.name}</p>
+                  <p><strong>Status:</strong> {item.status}</p>
+                  <p><strong>Items:</strong> {item.items.length}</p>
+                  <p><strong>Budget:</strong> ${budget.toFixed(2)}</p> {/* Total Estimated Cost */}
+                  <p><strong>Actual:</strong> ${actual.toFixed(2)}</p> {/* Total Actual Cost */}
+
+                  {/* Emoji Buttons */}
+                  <div className="buttonContainer">
+                    {item.items.length !== 0 && (
+                      <button className="iconButton" data-tooltip="Start Shopping">🛒</button>
+                    )}
+                    <button className="iconButton" data-tooltip="Edit List" onClick={() => handleEdit(item)}>✏️</button>
+                    {item.items.length === 0 && (
+                      <button className="iconButton" data-tooltip="Delete List" onClick={() => handleDelete(item._id)}>❌</button>
+                    )}
+                    <button className="iconButton" data-tooltip="Close List">🔒</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

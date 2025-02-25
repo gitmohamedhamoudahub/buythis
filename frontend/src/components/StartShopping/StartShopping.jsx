@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShoppingListContext from '../../context/ShoppingListContext.jsx';
 import ShoppingListSelect from '../ShoppingListControls/ShoppingListSelect.jsx';
 import './StartShopping.css'; // Import CSS file
 import ShoppingListGrid from '../ShoppingListControls/ShoppingListGrid/ShoppingListGrid.jsx';
+
 function StartShopping() {
   const { shoppingLists, loading, error, addList, deleteList } = useContext(ShoppingListContext);
   const [newListName, setNewListName] = useState("");
@@ -11,8 +12,26 @@ function StartShopping() {
   const navigate = useNavigate();
   const [selectedList, setSelectedList] = useState(null);
 
+  // Filter shopping lists to show only those with items
+  const nonEmptyLists = shoppingLists.filter(list => list.items && list.items.length > 0);
+
+  useEffect(() => {
+    if (selectedList) {
+      const updatedList = shoppingLists.find((list) => list._id === selectedList._id);
+      if (updatedList && updatedList.items.length > 0) {
+        setSelectedList(updatedList);
+      } else {
+        setSelectedList(null); // Reset if the list is now empty
+      }
+    }
+  }, [shoppingLists]);
+
   const handleSelectList = (list) => {
-    setSelectedList(list);
+    if (list.items && list.items.length > 0) {
+      setSelectedList(list);
+    } else {
+      alert("This list has no items!");
+    }
   };
 
   const handleAddList = async () => {
@@ -23,7 +42,7 @@ function StartShopping() {
 
     setAdding(true);
     await addList(newListName);
-    setNewListName(""); // Clear input after adding
+    setNewListName("");
     setAdding(false);
   };
 
@@ -37,27 +56,20 @@ function StartShopping() {
   };
 
   return (
-
     <div className="mainContainer">
       <h1>Start Shopping</h1>
 
       <div>
-      {/* <h2>Select a Shopping List</h2> */}
-      <ShoppingListSelect onSelectList={handleSelectList} />
+        {/* Pass only lists with items */}
+        <ShoppingListSelect onSelectList={handleSelectList} shoppingLists={nonEmptyLists} />
 
-      {selectedList && (
-        <div>
+        {selectedList && (
           <div className="mainContainer">
-      
-      <ShoppingListGrid list={selectedList} />
-    
-    </div>
-    
-        </div>
-      )}
-    </div>
-
+            <ShoppingListGrid list={selectedList} />
+          </div>
+        )}
       </div>
+    </div>
   );
 }
 

@@ -53,10 +53,10 @@ function ShoppingListGrid({ list }) {
         <span>Actions</span>
       </div>
 
-      {items.length === 0 ? (
+      {list.items.length === 0 ? (
         <p>No items in this list.</p>
       ) : (
-        items.map((item, index) => (
+        list.items.map((item, index) => (
           <div className="grid-row" key={item.item_id}>
             <span>{item.name }</span>
             <input
