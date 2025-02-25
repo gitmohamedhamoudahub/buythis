@@ -42,7 +42,8 @@ function ShoppingListSelect({ onSelectList }) {
 
   return (
     <div className="shopping-list-select">
-        <AddShoppingListItem/>
+      <div className="listsContainer">
+
       <div className="search-container">
         <input
           type="text"
@@ -52,8 +53,6 @@ function ShoppingListSelect({ onSelectList }) {
           className="search-input"
         />
       </div>
-
-      <div className="listsContainer">
         <div className="allLists">
           {filteredLists.length === 0 && <p>No shopping lists found</p>}
 
@@ -74,10 +73,10 @@ function ShoppingListSelect({ onSelectList }) {
                   {list.items.length !== 0 && (
                     <button className="iconButton" data-tooltip="Start Shopping">🛒</button>
                   )}
-                  <button className="iconButton" data-tooltip="Edit List">✏️</button>
+                  {/* <button className="iconButton" data-tooltip="Edit List">✏️</button>
                   {list.items.length === 0 && (
                     <button className="iconButton" data-tooltip="Delete List">❌</button>
-                  )}
+                  )} */}
                   <button className="iconButton" data-tooltip="Close List">🔒</button>
                 </div>
               </div>

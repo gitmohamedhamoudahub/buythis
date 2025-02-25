@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import ShoppingListGrid from '../ShoppingListControls/ShoppingListGrid/ShoppingListGrid.jsx';
 //import "./ShoppingListDetails.css";
 
 function ShoppingListDetails() {
@@ -33,55 +34,63 @@ function ShoppingListDetails() {
     };
 
     return (
+
         <div className="detailsContainer">
-            <h2>Shopping List Details</h2>
-            <p><strong>List Name:</strong> {list.list_name}</p>
-            <p><strong>Created by:</strong> {list.user_id.name}</p>
-            <p><strong>Status:</strong> {list.status}</p>
-            <p><strong>Items Count:</strong> {items.length}</p>
-
-            <h3>Items:</h3>
-            <ul>
-                {items.length > 0 ? (
-                    items.map((item, index) => (
-                        <li key={index}>
-                            {item.name} - {item.quantity} {item.unit}
-                        </li>
-                    ))
-                ) : (
-                    <p>No items in this list.</p>
-                )}
-            </ul>
-
-            {/* Add New Item Section */}
-            <h3>Add New Item</h3>
-            <div className="addItemForm">
-                <input 
-                    type="text" 
-                    name="name" 
-                    placeholder="Item Name" 
-                    value={newItem.name} 
-                    onChange={handleInputChange} 
-                />
-                <input 
-                    type="text" 
-                    name="quantity" 
-                    placeholder="Quantity" 
-                    value={newItem.quantity} 
-                    onChange={handleInputChange} 
-                />
-                <input 
-                    type="text" 
-                    name="unit" 
-                    placeholder="Unit (e.g., kg, pcs)" 
-                    value={newItem.unit} 
-                    onChange={handleInputChange} 
-                />
-                <button onClick={handleAddItem}>➕ Add Item</button>
+            <button className="btnBack" onClick={() => navigate(-1)}>🔙 Back to Lists</button>
+            <ShoppingListGrid list={list} />
+            
             </div>
 
-            <button onClick={() => navigate(-1)}>🔙 Back to Lists</button>
-        </div>
+        // <div className="detailsContainer">
+        //     <ShoppingListGrid list={list} />
+        //     <h2>Shopping List Details</h2>
+        //     <p><strong>List Name:</strong> {list.list_name}</p>
+        //     <p><strong>Created by:</strong> {list.user_id.name}</p>
+        //     <p><strong>Status:</strong> {list.status}</p>
+        //     <p><strong>Items Count:</strong> {items.length}</p>
+
+        //     <h3>Items:</h3>
+        //     <ul>
+        //         {items.length > 0 ? (
+        //             items.map((item, index) => (
+        //                 <li key={index}>
+        //                     {item.name} - {item.quantity} {item.unit}
+        //                 </li>
+        //             ))
+        //         ) : (
+        //             <p>No items in this list.</p>
+        //         )}
+        //     </ul>
+
+        //     {/* Add New Item Section */}
+        //     <h3>Add New Item</h3>
+        //     <div className="addItemForm">
+        //         <input 
+        //             type="text" 
+        //             name="name" 
+        //             placeholder="Item Name" 
+        //             value={newItem.name} 
+        //             onChange={handleInputChange} 
+        //         />
+        //         <input 
+        //             type="text" 
+        //             name="quantity" 
+        //             placeholder="Quantity" 
+        //             value={newItem.quantity} 
+        //             onChange={handleInputChange} 
+        //         />
+        //         <input 
+        //             type="text" 
+        //             name="unit" 
+        //             placeholder="Unit (e.g., kg, pcs)" 
+        //             value={newItem.unit} 
+        //             onChange={handleInputChange} 
+        //         />
+        //         <button onClick={handleAddItem}>➕ Add Item</button>
+        //     </div>
+
+        //     <button onClick={() => navigate(-1)}>🔙 Back to Lists</button>
+        // </div>
     );
 }
 

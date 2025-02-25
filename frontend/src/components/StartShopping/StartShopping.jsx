@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ShoppingListContext from '../../context/ShoppingListContext.jsx';
 import ShoppingListSelect from '../ShoppingListControls/ShoppingListSelect.jsx';
 import './StartShopping.css'; // Import CSS file
-
+import ShoppingListGrid from '../ShoppingListControls/ShoppingListGrid/ShoppingListGrid.jsx';
 function StartShopping() {
   const { shoppingLists, loading, error, addList, deleteList } = useContext(ShoppingListContext);
   const [newListName, setNewListName] = useState("");
@@ -37,18 +37,22 @@ function StartShopping() {
   };
 
   return (
+
     <div className="mainContainer">
       <h1>Start Shopping</h1>
 
       <div>
-      <h2>Select a Shopping List</h2>
+      {/* <h2>Select a Shopping List</h2> */}
       <ShoppingListSelect onSelectList={handleSelectList} />
 
       {selectedList && (
         <div>
-          <h3>Selected Shopping List:</h3>
-          <p>Name: {selectedList.list_name}</p>
-          <p>Items: {selectedList.items.length}</p>
+          <div className="mainContainer">
+      
+      <ShoppingListGrid list={selectedList} />
+    
+    </div>
+    
         </div>
       )}
     </div>
