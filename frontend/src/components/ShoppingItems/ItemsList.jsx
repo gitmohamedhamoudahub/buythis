@@ -4,6 +4,7 @@ import './ItemsList.css';
 import { useState, useEffect } from 'react';
 import { getShoppingItems } from '../../data/shoppingItemsData.jsx';
 import './itemsList.css'; // Import CSS file
+import AddShoppingListItem from '../ShoppingListControls/AddShoppingListItem.jsx';
 
 function ItemsList() {
   const [items, setItems] = useState([]);
@@ -69,6 +70,7 @@ function ItemsList() {
 
   return (
     < >
+    
     {loading && <div>Loading...</div>}
       {items.map((item) => (
         
@@ -258,7 +260,9 @@ function ItemsList() {
                 onChange={(e) => handleImageUpload(e, item._id)}
               />
             </div>
+            
           </div>
+          
         </div>
       ))}
     </>

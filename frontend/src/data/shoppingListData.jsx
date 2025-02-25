@@ -27,6 +27,7 @@ export const createShoppingList = async (listData) => {
 
 // Update a shopping list
 export const updateShoppingList = async (id, updatedData) => {
+  console.log('updateShoppingList', id, updatedData);
   const response = await api.put(`/shoppingLists/${id}`, updatedData);
   return response.data;
 };

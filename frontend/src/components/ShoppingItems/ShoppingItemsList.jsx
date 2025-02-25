@@ -1,6 +1,8 @@
 // import { useShoppingItems } from "../../context/ShoppingItemsContext.jsx";
 import { useState, useContext, useEffect } from "react";
 import ShoppingItemsContext from "../../context/ShoppingItemsContext.jsx";
+import AddShoppingListItem from '../ShoppingListControls/AddShoppingListItem.jsx';
+
 import './itemsList.css'; // Import CSS file
 
 function ShoppingItemsList() {
@@ -244,7 +246,8 @@ const handleImageUpload = (event) => {
                   />
                 </div>
               </div>
-             
+              <AddShoppingListItem selectedItemId={selectedItem._id}/>
+              <br></br>
             </div>
               )
               
@@ -279,7 +282,7 @@ const handleImageUpload = (event) => {
             <div key={item._id} className="item-row">
                 <div className="itemField"><strong>Name:</strong> {item.name}</div>
                 <div className="itemField"><strong>Category:</strong>{item.category}</div>
-                <div className="itemField"><strong>Stores:</strong> {item.stores}</div>
+                <div className="itemField"><strong>Stores:</strong> {item.stores.join(' - ')}</div>
                 <div className="itemField"><strong>Price:</strong>{item.price}</div>
                 <button className="btnItemsEdit" onClick={() => handleEdit(item)}>✏️</button> 
                   

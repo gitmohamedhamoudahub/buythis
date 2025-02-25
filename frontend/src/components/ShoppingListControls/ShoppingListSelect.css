@@ -1,0 +1,191 @@
+/* ShoppingListSelect.css */
+.shopping-list-select {
+    width: 100%;
+    /* max-width: 500px; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .search-container {
+    margin-bottom: 10px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .list-container {
+    margin-top: 20px;
+    display: flex;
+    width: 80%;
+  }
+  
+  .list-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .list-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .item-count {
+    font-size: 12px;
+    color: #888;
+  }
+  .mainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* width: 80%; */
+
+}
+/* General Page Layout */
+body, .root {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  .listsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* flex-direction: row; */
+    padding: 20px;
+    /* width: 80%; */
+  }
+  
+  /* Container for all list cards */
+  .allLists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    /* width: 100%; */
+  }
+  
+  .listWrapper {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 280px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .listWrapper:hover {
+    transform: translateY(-5px);
+  }
+  
+  .listSummary {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2E8B57;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .listData {
+    text-align: left;
+    padding: 10px;
+  }
+  
+  .listData p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .listData strong {
+    color: #333;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .iconButton {
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+  }
+  
+  .iconButton:hover {
+    transform: scale(1.2);
+  }
+  
+  .iconButton::after {
+    content: attr(data-tooltip);
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .iconButton:hover::after {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* ****************** Add New List Section ****************** */
+  .addNewList {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 50% ;
+  }
+  
+  .addNewList label {
+    font-weight: bold;
+    color: #2E8B57;
+  }
+  
+  .addNewList input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    flex-grow: 1;
+  }
+  
+  .addNewList button {
+    width: 200px;
+  }
+  

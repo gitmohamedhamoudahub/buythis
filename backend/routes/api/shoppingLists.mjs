@@ -18,6 +18,42 @@ router.get('/', async (req, res) => {
     }
   });
   
+// Update a shopping list by ID
+router.put('/:id', async (req, res) => {
+  try {
+      const listId = req.params.id;
+      const { list_name, status, shared_with, items } = req.body;
+
+      // Validate if list exists
+      const existingList = await ShoppingList.findById(listId);
+      if (!existingList) {
+          return res.status(404).json({ message: 'Shopping List not found' });
+      }
+
+      // Validate shared_with field (if provided)
+      if (shared_with && !Array.isArray(shared_with)) {
+          return res.status(400).json({ message: 'shared_with must be an array of user IDs' });
+      }
+
+      // Validate items field (if provided)
+      if (items && !Array.isArray(items)) {
+          return res.status(400).json({ message: 'items must be an array' });
+      }
+
+      // Update fields if provided
+      if (list_name !== undefined) existingList.list_name = list_name;
+      if (status !== undefined) existingList.status = status;
+      if (shared_with !== undefined) existingList.shared_with = shared_with;
+      if (items !== undefined) existingList.items = items;
+
+      // Save updated list
+      const updatedList = await existingList.save();
+      res.status(200).json(updatedList);
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error', error: err.message });
+  }
+});
 
 
 // Get a specific shopping list by ID
