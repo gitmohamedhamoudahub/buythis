@@ -1,18 +1,28 @@
 import api from './axios';
+import { useAuth } from '../hooks/auth';
 
-// Get all shopping lists
+
 export const getShoppingLists = async () => {
   const response = await api.get('/shoppingLists');
   return response.data;
 };
 
-export const addShoppingList = async (listName) => {
-    const response = await api.post('/shoppingLists', { 
-        user_id: "67b4d6e15d26b775aa557a7f", // Replace with dynamic user ID
-        list_name: listName 
-    });
-    return response.data;
+
+export const addShoppingList = async (listName, userId) => {
+  if (!userId) {
+    throw new Error('User not logged in');
+  }
+
+  const response = await api.post('/shoppingLists', { 
+    user_id: userId, // Use dynamic user ID
+    list_name: listName 
+  });
+
+  return response.data;
 };
+
+
+
 // Get a single shopping list
 export const getShoppingList = async (id) => {
   const response = await api.get(`/shoppingLists/${id}`);

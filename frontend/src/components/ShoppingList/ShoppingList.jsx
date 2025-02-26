@@ -10,7 +10,12 @@ function ShoppingList() {
   const [newListName, setNewListName] = useState("");
   const [adding, setAdding] = useState(false);
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const {  logout } = useAuth();
+  
+
+  
+  const userId = ''; 
+  
   const handleClick = () => {
     logout();
   };
@@ -22,7 +27,8 @@ function ShoppingList() {
     }
 
     setAdding(true);
-    await addList(newListName);
+//    console.log("User ID", userId);
+    await addList(newListName, userId);
     setNewListName(""); // Clear input after adding
     setAdding(false);
   };
@@ -70,7 +76,7 @@ function ShoppingList() {
               <div key={item._id} className="listWrapper">
                 <div className="listSummary">{item.list_name}</div>
                 <div className="listData">
-                  <p><strong>Created by:</strong> {item.user_id.name}</p>
+                 <p><strong>Created by:</strong> {item.user_id.name}</p>
                   <p><strong>Status:</strong> {item.status}</p>
                   <p><strong>Items:</strong> {item.items.length}</p>
                   <p><strong>Budget:</strong> ${budget.toFixed(2)}</p> {/* Total Estimated Cost */}

@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
 import { getShoppingLists, addShoppingList, deleteShoppingList, updateShoppingList } from '../data/shoppingListData.jsx';
-
 // Create the context
 const ShoppingListContext = createContext();
 
@@ -26,10 +25,12 @@ export const ShoppingListProvider = ({ children }) => {
     fetchShoppingLists();
   }, []);
 
-  const addList = async (newListName) => {
+  const addList = async (newListName, userId) => {
     try {
-      const newList = await addShoppingList(newListName);
-      setShoppingLists((prevLists) => [...prevLists, newList]);
+
+       const newList = await addShoppingList(newListName, '67b4d6e15d26b775aa557a7f');  // Pass userId to the function
+    setShoppingLists((prevLists) => [...prevLists, newList]);
+
     } catch (err) {
       setError(err.message);
     }

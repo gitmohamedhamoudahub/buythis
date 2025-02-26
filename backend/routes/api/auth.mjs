@@ -73,9 +73,11 @@ router.post(
       //Create a jwt payload
       const payload = {
         user: {
-          id: user._id,
-        },
-      };
+          id: user._id,         
+          name: user.name,      
+         },
+      
+            };
 
       //sign and send jwt in response
       jwt.sign(
