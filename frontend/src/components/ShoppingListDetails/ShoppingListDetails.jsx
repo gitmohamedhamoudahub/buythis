@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ShoppingListGrid from '../ShoppingListControls/ShoppingListGrid/ShoppingListGrid.jsx';
+import { useAuth } from '../../hooks/auth';
+import Logout from "../LogOut/Logout.jsx";
 //import "./ShoppingListDetails.css";
 
 function ShoppingListDetails() {
@@ -11,7 +13,11 @@ function ShoppingListDetails() {
     // Local state for managing list items
     const [items, setItems] = useState(list?.items || []);
     const [newItem, setNewItem] = useState({ name: "", quantity: "", unit: "" });
-
+  const { logout } = useAuth();
+      const handleClick = () => {
+        logout();
+      };
+    
     if (!list) {
         return <p>No list data available.</p>;
     }
@@ -36,6 +42,7 @@ function ShoppingListDetails() {
     return (
 
         <div className="detailsContainer">
+           <Logout/>
             <button className="btnBack" onClick={() => navigate(-1)}>🔙 Back to Lists</button>
             <ShoppingListGrid list={list} />
             

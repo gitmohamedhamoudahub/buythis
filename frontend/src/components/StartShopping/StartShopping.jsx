@@ -4,7 +4,8 @@ import ShoppingListContext from '../../context/ShoppingListContext.jsx';
 import ShoppingListSelect from '../ShoppingListControls/ShoppingListSelect.jsx';
 import './StartShopping.css'; // Import CSS file
 import ShoppingListGrid from '../ShoppingListControls/ShoppingListGrid/ShoppingListGrid.jsx';
-
+import { useAuth } from '../../hooks/auth';
+import Logout from '../LogOut/Logout.jsx';
 function StartShopping() {
   const { shoppingLists, loading, error, addList, deleteList } = useContext(ShoppingListContext);
   const [newListName, setNewListName] = useState("");
@@ -14,6 +15,10 @@ function StartShopping() {
 
   // Filter shopping lists to show only those with items
   const nonEmptyLists = shoppingLists.filter(list => list.items && list.items.length > 0);
+  const { logout } = useAuth();
+  const handleClick = () => {
+    logout();
+  };
 
   useEffect(() => {
     if (selectedList) {
@@ -57,6 +62,8 @@ function StartShopping() {
 
   return (
     <div className="mainContainer">
+      <Logout/>
+      {/* <button onClick={handleClick}>LogOut</button> */}
       <h1>Start Shopping</h1>
 
       <div>

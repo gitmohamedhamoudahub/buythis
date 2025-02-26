@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShoppingListContext from '../../context/ShoppingListContext.jsx';
+import { useAuth } from '../../hooks/auth';
+import Logout from '../LogOut/Logout.jsx';
 import './ShoppingList.css'; // Import CSS file
 
 function ShoppingList() {
@@ -8,6 +10,10 @@ function ShoppingList() {
   const [newListName, setNewListName] = useState("");
   const [adding, setAdding] = useState(false);
   const navigate = useNavigate();
+  const { logout } = useAuth();
+  const handleClick = () => {
+    logout();
+  };
 
   const handleAddList = async () => {
     if (!newListName.trim()) {
@@ -31,7 +37,9 @@ function ShoppingList() {
   };
 
   return (
+    
     <div className="mainContainer">
+        <Logout></Logout>
       {/* Add New List Section */}
       <div className="addNewList">
         <label>List Name:</label>

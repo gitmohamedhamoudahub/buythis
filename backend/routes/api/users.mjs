@@ -17,55 +17,60 @@ router.post(
     check('password', 'Password must be at least 6 characters long').isLength({ min: 6 }),
   ],
   async (req, res) => {
-    console.log('New User...');
-    // Check for validation errors
+    //Check if any validation errors
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
+    //Destructure our req
     const { name, email, password } = req.body;
 
     try {
-      // Check if the user already exists
+      //Check is user already exists
       let user = await User.findOne({ email });
+      //If they exist respond with error
       if (user) {
-        return res.status(409).json({ errors: [{ msg: 'User already exists' }] });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'User Already Exist' }] });
       }
 
-      // Create a new user instance
+      //Create a user
       user = new User({
         name,
         email,
         password,
       });
 
-      // Generate salt and hash the password
+      //Encrypt password
       const salt = await bcrypt.genSalt(10);
+
       user.password = await bcrypt.hash(password, salt);
 
-      // Save the user to the database
       await user.save();
 
-      // Create JWT Payload
+      //Creating payload (data for the front end) for jwt
       const payload = {
         user: {
           id: user.id,
         },
       };
 
-      // Sign JWT Token
+      //Creating a jwt, signing, and if there are no errors, sending token to the front end
       jwt.sign(
         payload,
-        process.env.JWT_SECRET || 'defaultSecret', // Fallback in case JWT_SECRET is undefined
-        { expiresIn: '1h' }, // Set expiration to 1 hour
+        process.env.jwtSecret,
+        { expiresIn: 3600 }, //Expiration date/time
         (err, token) => {
           if (err) throw err;
-          res.status(201).json({ token });
+
+          res.json({ token });
         }
       );
-    } catch (error) {
-      console.error(error.message);
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }

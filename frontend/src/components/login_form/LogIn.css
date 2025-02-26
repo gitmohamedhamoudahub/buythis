@@ -1,0 +1,27 @@
+/* General styles */
+body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Centering the card */
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Login Card */
+  .login-card {
+    background: #fff;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Input g
+  

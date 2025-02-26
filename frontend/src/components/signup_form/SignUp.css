@@ -1,0 +1,86 @@
+/* General styles */
+body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Centering the card */
+  .signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Signup Card */
+  .signup-card {
+    background: #fff;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Input groups */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+  
+  .input-group input:focus {
+    border-color: #2E8B57;
+    outline: none;
+  }
+  
+  /* Buttons */
+  .signup-btn {
+    background: #2E8B57;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .signup-btn:hover {
+    background: #2E8B57;
+  }
+  
+  /* Sign-in text */
+  .signin-text {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  .signin-btn {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .signin-btn:hover {
+    text-decoration: underline;
+  }
+  

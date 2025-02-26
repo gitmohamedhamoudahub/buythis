@@ -3,7 +3,7 @@ import connectDB from './config/db.mjs';
 import dotenv from 'dotenv';
 import userRoutes from './routes/api/users.mjs';
 import shoppingListsRoutes from './routes/api/shoppingLists.mjs';
-//import authRoutes from './routes/api/auth.mjs';
+import authRoutes from './routes/api/auth.mjs';
 import shoppingItemRoutes from './routes/api/shoppingItems.mjs';
 
 import cors from 'cors';
@@ -27,7 +27,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/shoppingItems', shoppingItemRoutes);
 app.use('/api/shoppingLists', shoppingListsRoutes);
 
-//app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 // Enviromental Variables
 const PORT = process.env.PORT || 3000;
